@@ -76,7 +76,6 @@ elif home =="Attacker Check(Opearthing System)":
         st.write("")
     if attacktype == "Neptune" and OS == "Windows" and (AttackC >500 and AttackC<1000):
         st.write("")
-    if attacktype == "Neptune" and OS == "Windows" and AttackC >1000:
-        st.write("")
+    
     
 
