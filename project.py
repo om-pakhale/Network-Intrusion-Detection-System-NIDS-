@@ -17,22 +17,31 @@ columns = [
     'dst_host_serror_rate', 'dst_host_srv_serror_rate', 'dst_host_rerror_rate',
     'dst_host_srv_rerror_rate', 'attack', 'level'
 ]
+# Data use to Train model
 df = pd.read_csv("KDDTrain+.txt", header=None, names=columns)
 print("Shape of dataset:", df.shape)
+# Change of data in binary and storing it 
 df['attack'] = df['attack'].str.strip()
 df['attack'] = df['attack'].apply(lambda x: 0 if x == 'normal' else 1)
-label_encoder = LabelEncoder()
-print(label_encoder)
-df['protocol_type'] = label_encoder.fit_transform(df['protocol_type'])
-df['service'] = label_encoder.fit_transform(df['service'])
-df['flag'] = label_encoder.fit_transform(df['flag'])
+categorical_cols = ['protocol_type', 'service', 'flag']
+encoders = {} 
+for col in categorical_cols:
+    le = LabelEncoder()
+    df[col] = le.fit_transform(df[col])
+    encoders[col] = le
+# Dividing of Data in X and Y Axis
 X = df.iloc[:,0:41]
 y = df['attack']
 Xtrain , Xtest, ytrain , ytest = train_test_split(X,y,random_state=11,test_size=0.2)
-rf = RandomForestClassifier()
+rf = RandomForestClassifier(n_estimators=100,random_state=11)
 rf.fit(Xtrain,ytrain)
 y_pred = rf.predict(Xtest)
+# Return Accuary Score and Classification of Model Data
 print(rf.score(Xtest,ytest))
 print(classification_report(ytest,y_pred))
-print(f"Prediction of First Package:{y_pred[0]}")
-joblib.dump(rf ,'Model_Nids')
+# Data which is save to use again and train Model
+data_to_save = {
+    'model': rf,
+    'encoders': encoders
+}
+joblib.dump(data_to_save ,'Model_Nids.pkl')
