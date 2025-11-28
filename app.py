@@ -62,20 +62,121 @@ if home =="Intruder Detector":
 elif home =="Attacker Check(Opearthing System)":
     col1 , col2 = st.columns(2)
     with col1:
-       attacktype = st.radio("Attack type",["Neptune","satan"])
+       attacktype = st.radio("Attack type",["Neptune","Satan"])
     with col2:
         OS = st.radio("Operating System",["Windows","Linux","Android","Mac"])
-    AttackC = st.number_input("Attack Count",min_value=200,max_value=2000)
-    if attacktype == "Neptune" and OS == "Windows" and AttackC <500:
-        st.write("")
-    elif attacktype == "Neptune" and OS == "Windows" and (AttackC >500 and AttackC<1000):
-        st.write("")
-    elif attacktype == "Neptune" and OS == "Windows" and AttackC >1000:
-        st.write("")
-    if attacktype == "Neptune" and OS == "Windows" and AttackC <500:
-        st.write("")
-    if attacktype == "Neptune" and OS == "Windows" and (AttackC >500 and AttackC<1000):
-        st.write("")
-    
-    
+    AttackC = st.number_input("Attack Count",min_value=1000,max_value=3000)
+    st.write("Analyzing....")
+    if attacktype == "Neptune" and OS == "Windows":
+        st.success("Analysis Complete!")
+        if AttackC >1000 and AttackC<1500:
+            st.warning()
+            st.write()
+        elif AttackC>1500 and AttackC<2000:
+            st.warning()
+            st.write()
+        elif AttackC>2000 and AttackC<2500:
+            st.warning()
+            st.write()
+        elif AttackC>2500 and AttackC<3000:
+            st.warning()
+            st.write()
+    elif attacktype == "Satan" and OS == "Windows":
+        st.success("Analysis Complete!")
+        if AttackC >1000 and AttackC<1500:
+            st.warning()
+            st.write()
+        elif AttackC>1500 and AttackC<2000:
+            st.warning()
+            st.write()
+        elif AttackC>2000 and AttackC<2500:
+            st.warning()
+            st.write()
+        elif AttackC>2500 and AttackC<3000:
+            st.warning()
+            st.write()
+    elif attacktype == "Neptune" and OS == "Linux":
+        st.success("Analysis Complete!")
+        if AttackC >1000 and AttackC<1500:
+            st.warning()
+            st.write()
+        elif AttackC>1500 and AttackC<2000:
+            st.warning()
+            st.write()
+        elif AttackC>2000 and AttackC<2500:
+            st.warning()
+            st.write()
+        elif AttackC>2500 and AttackC<3000:
+            st.warning()
+            st.write()
+    elif attacktype == "Satan" and OS == "Linux":
+        st.success("Analysis Complete!")
+        if AttackC >1000 and AttackC<1500:
+            st.warning()
+            st.write()
+        elif AttackC>1500 and AttackC<2000:
+            st.warning()
+            st.write()
+        elif AttackC>2000 and AttackC<2500:
+            st.warning()
+            st.write()
+        elif AttackC>2500 and AttackC<3000:
+            st.warning()
+            st.write()
+    elif attacktype == "Neptune" and OS == "Mac":
+        st.success("Analysis Complete!")
+        if AttackC >1000 and AttackC<1500:
+            st.warning()
+            st.write()
+        elif AttackC>1500 and AttackC<2000:
+            st.warning()
+            st.write()
+        elif AttackC>2000 and AttackC<2500:
+            st.warning()
+            st.write()
+        elif AttackC>2500 and AttackC<3000:
+            st.warning()
+            st.write()
+    elif attacktype == "Satan" and OS == "Mac":
+        st.success("Analysis Complete!")
+        if AttackC >1000 and AttackC<1500:
+            st.warning()
+            st.write()
+        elif AttackC>1500 and AttackC<2000:
+            st.warning()
+            st.write()
+        elif AttackC>2000 and AttackC<2500:
+            st.warning()
+            st.write()
+        elif AttackC>2500 and AttackC<3000:
+            st.warning()
+            st.write()
+    elif attacktype == "Neptune" and OS == "Android":
+        st.success("Analysis Complete!")
+        if AttackC >1000 and AttackC<1500:
+            st.warning()
+            st.write()
+        elif AttackC>1500 and AttackC<2000:
+            st.warning()
+            st.write()
+        elif AttackC>2000 and AttackC<2500:
+            st.warning()
+            st.write()
+        elif AttackC>2500 and AttackC<3000:
+            st.warning()
+            st.write()
+    elif attacktype == "Satan" and OS == "Andriod":
+        st.success("Analysis Complete!")
+        if AttackC >1000 and AttackC<1500:
+            st.warning()
+            st.write()
+        elif AttackC>1500 and AttackC<2000:
+            st.warning()
+            st.write()
+        elif AttackC>2000 and AttackC<2500:
+            st.warning()
+            st.write()
+        elif AttackC>2500 and AttackC<3000:
+            st.warning()
+            st.write()
 
