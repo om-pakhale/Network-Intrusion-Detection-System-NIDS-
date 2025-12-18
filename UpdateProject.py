@@ -3,7 +3,7 @@ import pandas as pd
 import joblib
 import os
 import sys
-import scapy
+import scapy.all as sc
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
@@ -77,7 +77,7 @@ else:
     # Header
     st.header("Network Intrusion Detection system")
     st.sidebar.header('Home')
-    home = st.sidebar.radio("Chose The Model", ["Intruder Detector", "Attacker Check(Opearthing System)"])
+    home = st.radio("Chose The Model", ["Intruder Detector", "Attacker Check(Opearthing System)","Live detection"])
 
     # --- TAB 1: INTRUDER DETECTOR ---
     if home == "Intruder Detector":
@@ -164,4 +164,14 @@ else:
                 st.error("Severity: Critical - The entire system has crashed.")
             else:
                 st.write("No immediate threat detected in this range.")
+        elif home =="Live detection":
+            st.header("Live Detection Model")
+            st.warning("🚨 WARNING: It will use your live Network  Data")
+            st.write("Scaning the Network")
+            sc.sniff(prn = Packet_1,store=0,count =10 )
+            def Packet_1(packets):
+                
+            packet_list = []
+            
+
     
