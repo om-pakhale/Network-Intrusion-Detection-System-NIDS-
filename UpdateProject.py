@@ -76,8 +76,7 @@ else:
 
     # Header
     st.header("Network Intrusion Detection system")
-    st.sidebar.header('Home')
-    home = st.radio("Chose The Model", ["Intruder Detector", "Attacker Check(Opearthing System)","Live detection"])
+    home = st.sidebar.radio("Chose The Model", ["Intruder Detector", "Attacker Check(Opearthing System)","Live Detection"])
 
     # --- TAB 1: INTRUDER DETECTOR ---
     if home == "Intruder Detector":
@@ -164,14 +163,35 @@ else:
                 st.error("Severity: Critical - The entire system has crashed.")
             else:
                 st.write("No immediate threat detected in this range.")
-        elif home =="Live detection":
+
+
+        # ============LIVE DETECTION==================================================
+        elif home =="Live Detection":
             st.header("Live Detection Model")
             st.warning("🚨 WARNING: It will use your live Network  Data")
             st.write("Scaning the Network")
-            sc.sniff(prn = Packet_1,store=0,count =10 )
-            def Packet_1(packets):
-                
             packet_list = []
+            def Packet_1(packets):
+                if sc.IP in packets:
+                    Data_src = packets[sc.IP].src
+                    Data_dst = packets[sc.IP].dst
+                    Data_proto = packets[sc.IP].proto
+                    length = len(packets)
+                if Data_proto == 6: p_type ="Tcp"
+                elif Data_proto == 17: p_type ="UDP"
+                else: p_type = "Other"
+                packet_Infio=   {
+                    "Source IP": Data_src,
+                    "Destination IP": Data_dst,
+                    "Protocol": p_type,
+                    "Length": length,
+                    "Info": packets.summary()
+                    }
+                packet_list.append(packet_Infio)
+
+            sc.sniff(prn = Packet_1,store=0,count =10 )
+
+            live_data = pd.DataFrame(packet_list)
             
 
     
