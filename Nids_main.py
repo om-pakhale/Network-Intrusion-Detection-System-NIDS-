@@ -2,6 +2,8 @@ import streamlit as st
 import pandas as pd
 import joblib
 import os
+import sys
+import scapy.all as sc
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
@@ -74,8 +76,7 @@ else:
 
     # Header
     st.header("Network Intrusion Detection system")
-    st.sidebar.header('Home')
-    home = st.sidebar.radio("Chose The Model", ["Intruder Detector", "Attacker Check(Opearthing System)"])
+    home = st.sidebar.radio("Chose The Model", ["Intruder Detector", "Attacker Check(Opearthing System)","Live Detection"])
 
     # --- TAB 1: INTRUDER DETECTOR ---
     if home == "Intruder Detector":
@@ -119,7 +120,7 @@ else:
                 st.error(f"Error during processing: {e}")
 
     # --- TAB 2: ATTACK CHECKER ---
-    elif home == "Attacker Check(Opearthing System)":
+    elif home == "Attacker Check(Opearting System)":
         col1, col2 = st.columns(2)
         with col1:
             attacktype = st.radio("Attack type", ["Neptune", "Satan"])
@@ -162,3 +163,48 @@ else:
                 st.error("Severity: Critical - The entire system has crashed.")
             else:
                 st.write("No immediate threat detected in this range.")
+
+
+        # ============LIVE DETECTION==================================================
+
+        elif home =="Live Detection":
+            st.header("Live Detection Model")
+            st.warning("🚨 WARNING: It will use your live Network  Data")
+            if button("Start live Scan"):
+                st.write("Scaning the Network")
+                packet_list = []
+                def Packet_1(packet):
+                    if sc.IP in packet:
+                        Data_src = packet[sc.IP].src
+                        Data_dst = packet[sc.IP].dst
+                        Data_proto = packet[sc.IP].proto
+                        length = len(packet)
+                    if Data_proto == 6:
+                        p_type ="Tcp"
+                    elif Data_proto == 17: 
+                        p_type ="UDP"
+                    else: p_type = "Other"
+
+                    packet_Infio=   {
+                        "Source IP": Data_src,
+                        "Destination IP": Data_dst,
+                        "Protocol": p_type,
+                        "Length": length,
+                        "Info": packet.summary()
+                        }
+                    packet_list.append(packet_Infio)
+
+                sc.sniff(prn = Packet_1,store=0,count =10,timeout = 10)
+
+                live_data = pd.DataFrame(packet_list)
+                st.success("Anyalize Completed")
+                st.dataframe(live_data)
+                large_packet = live_data[live_data['Length']>1000]
+
+                if not large_packet.empty():
+                    st.warningarning(f"Large Number of packet{large_packet} are entering ur Network ")
+                else:
+                    st.warning("Nothing issue in your Network Traffic")
+            
+
+    
