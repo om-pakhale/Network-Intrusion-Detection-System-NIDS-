@@ -120,7 +120,7 @@ else:
                 st.error(f"Error during processing: {e}")
 
     # --- TAB 2: ATTACK CHECKER ---
-    elif home == "Attacker Check(Opearting System)":
+    elif home == "Attacker Check(Opearthing System)":
         col1, col2 = st.columns(2)
         with col1:
             attacktype = st.radio("Attack type", ["Neptune", "Satan"])
@@ -167,44 +167,41 @@ else:
 
         # ============LIVE DETECTION==================================================
 
-        elif home =="Live Detection":
+    elif home == "Live Detection":
             st.header("Live Detection Model")
-            st.warning("🚨 WARNING: It will use your live Network  Data")
-            if button("Start live Scan"):
-                st.write("Scaning the Network")
+            st.warning("🚨 This will scan your live Network log.")
+            
+            if st.button("Start Live Scan"):
                 packet_list = []
                 def Packet_1(packet):
                     if sc.IP in packet:
-                        Data_src = packet[sc.IP].src
-                        Data_dst = packet[sc.IP].dst
-                        Data_proto = packet[sc.IP].proto
-                        length = len(packet)
-                    if Data_proto == 6:
-                        p_type ="Tcp"
-                    elif Data_proto == 17: 
-                        p_type ="UDP"
-                    else: p_type = "Other"
+                        p_type = "Tcp" if packet[sc.IP].proto == 6 else "UDP" if packet[sc.IP].proto == 17 else "Other"
+                        packet_list.append({
+                            "Source IP": packet[sc.IP].src,
+                            "Destination IP": packet[sc.IP].dst,
+                            "Protocol": p_type,
+                            "Length": len(packet),
+                            "Info": packet.summary()
+                        })
 
-                    packet_Infio=   {
-                        "Source IP": Data_src,
-                        "Destination IP": Data_dst,
-                        "Protocol": p_type,
-                        "Length": length,
-                        "Info": packet.summary()
-                        }
-                    packet_list.append(packet_Infio)
+                with st.spinner("Sniffing 10 packets..."):
+                    try:
+                        # Added timeout to prevent infinite hang
+                        sc.sniff(prn=Packet_1, store=0, count=10, timeout=10)
+                        if packet_list:
+                            live_data = pd.DataFrame(packet_list)
+                            st.dataframe(live_data)
+                            if not live_data[live_data['Length'] > 1000].empty:
+                                st.error("🚨 Large packets detected in traffic!")
+                            else:
+                                st.success("No immediate traffic issues detected.")
+                        else:
+                            st.error("No packets captured. Ensure you are running with sudo.")
+                    except Exception as e:
+                        st.error(f"Error capturing packets: {e}")
+            
 
-                sc.sniff(prn = Packet_1,store=0,count =10,timeout = 10)
-
-                live_data = pd.DataFrame(packet_list)
-                st.success("Anyalize Completed")
-                st.dataframe(live_data)
-                large_packet = live_data[live_data['Length']>1000]
-
-                if not large_packet.empty():
-                    st.warningarning(f"Large Number of packet{large_packet} are entering ur Network ")
-                else:
-                    st.warning("Nothing issue in your Network Traffic")
+    
             
 
     
