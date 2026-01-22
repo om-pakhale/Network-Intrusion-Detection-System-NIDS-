@@ -243,6 +243,7 @@ else:
                                 if error in res.text.lower():
                                     st.warning(f"SQL Injection potential detected at {post_url}")
                                     break
+                                
         vulnerability(url)
                         
 
