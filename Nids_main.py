@@ -202,7 +202,7 @@ else:
                     except Exception as e:
                         st.error(f"Error capturing packets: {e}")
 
-
+# =======Web Vulnerability Scanner=========#
     elif home == "Web Vulnerability Scanner":
         st.header("Web Vulnerability Scanner")
 
