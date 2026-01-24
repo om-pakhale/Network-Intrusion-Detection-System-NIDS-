@@ -28,5 +28,5 @@ This project combines two core security pillars into one interface:
 ## 📦 Installation & Usage
 1. **Clone the Repo:**
    ```bash
-   git clone [https://github.com/yourusername/sentinel-sec.git](https://github.com/yourusername/sentinel-sec.git)
-   cd sentinel-sec
+   git clone https://github.com/ombulids/Network-Intrusion-Detection-System-NIDS-.git
+  
