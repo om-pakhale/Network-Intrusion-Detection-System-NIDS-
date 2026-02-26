@@ -90,7 +90,7 @@ else:
     # --- TAB 1: INTRUDER DETECTOR ---
     if home == "Intruder Detector":
         st.title("Upload Network Log files")
-        Data = st.file_uploader("Upload the data u want to test(.txt , .csv)", accept_multiple_files=True, type=["txt", "csv"])
+        Data = st.file_uploader("Upload the data u want to test(.txt , .csv)", accept_multiple_files=True, type=["txt", "csv", "exl"])
         
         if Data:
             df_list = [pd.read_csv(file, header=None) for file in Data]
@@ -281,7 +281,11 @@ else:
                                 if error in res.text.lower():
                                     st.warning(f"SQL Injection potential detected at {post_url}")
                                     break                         
-        vulnerability(url)
+        if st.button("Start Vulnerability Scan"):
+            if url:
+                vulnerability(url)
+            else:
+                st.warning("Please enter a URL first.")
                         
 
                 
