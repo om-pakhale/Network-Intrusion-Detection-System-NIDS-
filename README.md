@@ -54,7 +54,7 @@
    ```
 
 3. **External Requirements:**
-   * **Windows:** Install [Npcap](https://nmap.org/npcap/) for live sniffing.
+   * **Windows:** Install [Npcap](https://nmap.org/npcap/) for live sniffing and scanning.
    * **Permissions:** Run the app with **Administrator** or **Sudo** privileges to access the network interface.
 
 4. **Launch the App:**
@@ -86,3 +86,5 @@
 
 ## ⚖️ Disclaimer
 *Sentinel-Sec is intended for educational and authorized security testing purposes. Unauthorized use of this tool on networks or websites without permission is strictly prohibited.*
+
+
